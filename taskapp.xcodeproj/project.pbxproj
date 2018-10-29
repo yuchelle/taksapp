@@ -55,6 +55,7 @@
 		A524547F217715C70062B180 = {
 			isa = PBXGroup;
 			children = (
+				A58D24D32182D0CE00281F59 /* Task.swift */,
 				A524548A217715C70062B180 /* taskapp */,
 				A5245489217715C70062B180 /* Products */,
 				B80286A887411697DB90C4BE /* Pods */,
@@ -73,7 +74,6 @@
 		A524548A217715C70062B180 /* taskapp */ = {
 			isa = PBXGroup;
 			children = (
-				A58D24D32182D0CE00281F59 /* Task.swift */,
 				A524548B217715C70062B180 /* AppDelegate.swift */,
 				A524548D217715C70062B180 /* ViewController.swift */,
 				A524548F217715C70062B180 /* Main.storyboard */,

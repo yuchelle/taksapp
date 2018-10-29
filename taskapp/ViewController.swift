@@ -10,8 +10,9 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate { //Oct29追加
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar! //Oct28追加
     
     // Realmインスタンスを取得する
     let realm = try! Realm()
@@ -27,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,6 +123,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 入力画面から戻ってきた時にTableViewを更新させる
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    // 検索時の呼び出しメソッド
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.showsCancelButton = true
+        let realm = try! Realm()
+        
+        if searchText.isEmpty {
+            let cate = realm.objects(Task.self)
+            taskArray = cate
+            print(cate)
+            print("Empty")
+            
+        } else {
+            let cate = realm.objects(Task.self).filter("category CONTAINS %@", searchText)
+            taskArray = cate
+            print(cate)
+            print("searched")
+        }
+        tableView.reloadData()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        let cate = realm.objects(Task.self)
+        taskArray = cate
+        searchBar.text = ""
         tableView.reloadData()
     }
 
